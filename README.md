@@ -1,5 +1,5 @@
 <div align="center" >
-  <img src="your-image-source.jpg" alt="Image Description" />
+  <img src="https://github.com/HANNIEL21/Ruubby/blob/client/logo.png" alt="Ruubby Logo" />
   <h1 style="text-align: center;">Ruubby.com</h1>
 </div>
 

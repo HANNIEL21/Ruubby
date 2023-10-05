@@ -15,6 +15,6 @@ Live Link: [https://www.Ruubby.com](https://www.Ruubby.com)
   <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="" />
   <img src="https://www.vectorlogo.zone/logos/tailwind/tailwind-ar21.svg" alt="" />
   <img src="https://github.com/prplx/svg-logos/blob/master/svg/redux.svg" alt="" />
-  <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="" />
+  <img src="https://www.vectorlogo.zone/logos/axios/axios-ar21.svg" alt="" />
 </div>
 

@@ -4,6 +4,14 @@ import { verifyTokenAndAuthorization } from "../utils/verifyToken.js";
 const userRouter = express.Router();
 
 
+// get all users
+
+// get a user
+
+// update a user
+
+// delete a user
+
 userRouter.put("/:id", verifyTokenAndAuthorization ,async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString();

@@ -6,10 +6,6 @@
 
 <p align="center" >Ruubby is an <em style="color:blue;">E-commerce Store</em> to pays users to shop in the form of <b>Credit Score</b> that can later be used to purchase items from the store.</p>
 
-
-# 🌎 Deployment
-Live Link: [https://www.Ruubby.com](https://www.Ruubby.com)
-
 # 🛠️ Tools
 <div align="center"  >
   <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="" />
@@ -18,3 +14,5 @@ Live Link: [https://www.Ruubby.com](https://www.Ruubby.com)
   <img src="https://www.vectorlogo.zone/logos/axios/axios-ar21.svg" alt="" />
 </div>
 
+# 🌎 Deployment
+Live Link: [https://www.Ruubby.com](https://www.Ruubby.com)

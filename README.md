@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+<div style="height: 200px; background-color: powderblue; text-align: center;">
+  <img src="your-image-source.jpg" alt="Image Description" />
+  <h1 style="text-align: center;">Ruubby.com</h1>
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+<p style="text-align: center;">Ruubby is an <em>E-commerce Store</em> to pays users to shop in the form of <b>Credit Score</b> that can later be used to purchase items from the store.</p>
 
 ## Available Scripts
 

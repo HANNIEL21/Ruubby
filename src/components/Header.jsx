@@ -1,22 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Buttons } from "../Export";
 import { Link } from 'react-router-dom';
 import { MdClose } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
+import { useSelector, useDispatch } from 'react-redux';
 
 const Header = () => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const navLinks = [
-        { title: "Credit Score", url: "/creditscore" },
-        { title: "Rent a Property", url: "/properties" },
-        { title: "shop now", url: "/shop" },
+    const [navLinks, setNavLinks] = useState([]);
+    const {token} = useSelector((state) => state.user);
 
-        { title: "frequently asked question", url: "/faqs" },
-        { title: "privacy", url: "/privacy" },
-        { title: "about us", url: "/about" },
+    useEffect(() => {
+        let links;
+        if (!token) {
+            links = [
+                { title: "Credit Score", url: "/creditscore" },
+                { title: "Rent a Property", url: "/properties" },
+                { title: "shop now", url: "/shop" },
+
+                { title: "frequently asked question", url: "/faqs" },
+                { title: "privacy", url: "/privacy" },
+                { title: "about us", url: "/about" },
 
 
-    ];
+            ];
+        } else {
+            links = [
+                { title: "Home", url: "/shop" },
+                { title: "My Profile", url: "/myprofile" },
+                { title: "Orders", url: "/orders" },
+                { title: "Credit Score", url: "/creditscore" },
+                { title: "Rent a Property", url: "/properties" },
+
+            ];
+        }
+        setNavLinks(links);
+    }, [token]);
 
     return (
         <div className='max-w-[2000px] mx-auto'>
@@ -52,7 +72,7 @@ const Header = () => {
                     })}
                 </div>
                 <div className='hidden lg:flex items-center'>
-                    {/* <Btnnn setIsSidebarOpen={setIsSidebarOpen} /> */}
+                    <Buttons setIsSidebarOpen={setIsSidebarOpen} />
                 </div>
             </div>
 
@@ -86,7 +106,7 @@ const Header = () => {
                         );
                     })}
                 </div>
-                {/* <Btnnn /> */}
+                <Buttons />
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initState = {
+const initialState = {
     user: {
         id: "",
         first_name: "",
@@ -22,7 +22,7 @@ const initState = {
 
 export const userSlice = createSlice({
     name: "user",
-    initialState: initState,
+    initialState,
     reducers: {
         clearState: (state) => {
             state.isError = false;
@@ -58,11 +58,11 @@ export const userSlice = createSlice({
         settype: (state, { payload }) => {
             state.user.user_type = payload;
         },
-        isFetchingTrue: (state) => {
-            state.isFetching = true;
+        isLoadingTrue: (state) => {
+            state.isLoading = true;
         },
-        isFetchingFalse: (state) => {
-            state.isFetching = false;
+        isLoadingFalse: (state) => {
+            state.isLoading = false;
         },
         setToken: (state, { payload }) => {
             state.token = payload;
@@ -85,13 +85,13 @@ export const {
     setFirstName,
     setLastName,
     setPassword,
-    setPhone,
+    setPhoneNumber,
     settype,
     setReferral,
-    isFetchingFalse,
-    isFetchingTrue,
+    isLoadingFalse,
+    isLoadingTrue,
     setToken,
     setUserDetails,
     Logout,
 } = userSlice.actions;
-export const userSelector = (state) => state.user;
+export default userSlice.reducer ;

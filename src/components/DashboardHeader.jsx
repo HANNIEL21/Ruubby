@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaOpencart, FaRegBell } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 const DashboardHeader = () => {
+    const {userDetails} = useSelector((state) => state.user);
+
+    const fullName = userDetails.firstName + " " + userDetails.lastName;
+
     const [user, setUser] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div className='p-4 bg-white drop-shadow-sm flex items-center justify-between'>
             <div>
-                <h3 className='text-2xl font-bold m-0'>{`Hi, Hanniel Daniel`}</h3>
-                <i className='text-xs text-blue-800 font-semibold'>Admin</i>
+                <h3 className='text-2xl font-bold m-0'>{`Hi, ${fullName}`}</h3>
+                <i className='text-xs text-blue-800 font-semibold'>{userDetails?.userType}</i>
             </div>
 
             <input
@@ -53,7 +58,7 @@ const DashboardHeader = () => {
                                 onClick={() => setIsOpen(!isOpen)}
                                 class="inline-flex w-full justify-center rounded-full gap-x-1.5 bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 hover:text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-800" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                <span>{`Hanniel Daniel`}</span>
+                                <span>{fullName}</span>
                             </button>
                         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaOpencart } from 'react-icons/fa';
 import {useSelector, useDispatch} from "react-redux";
@@ -6,8 +6,7 @@ import { Logout } from '../Export';
 
 
 const Buttons = ({ setIsSidebarOpen }) => {
-    const [userProfile, setUserProfile] = useState([]);
-    const {token} = useSelector((state) => state.user);
+    const {token, userDetails } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,10 +30,10 @@ const Buttons = ({ setIsSidebarOpen }) => {
             )}
             {token && (
                 <Link
-                    to={`${userProfile?.type_id === "1" ? "/shop" : "/dashboard"}`}
+                    to={`${userDetails?.userType === "consumer" ? "/shop" : "/dashboard"}`}
                     className='p-3 w-full px-8 text-blue-800 border-blue-800 border-2 font-medium hover:scale-95 transition rounded-md shadow-md whitespace-nowrap capitalize select-none cursor-pointer'
                 >
-                    Hi, {`${userProfile.first_name || ""}`}
+                    Hi, {`${userDetails.firstName || ""}`}
                 </Link>
             )}
 

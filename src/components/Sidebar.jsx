@@ -25,14 +25,15 @@ import {
     RiFilePaperFill,
     RiFilePaperLine,
 } from "react-icons/ri";
+import { useSelector } from 'react-redux';
 const Sidebar = () => {
-    const [userType, setUserType] = useState("Admin");
+    const {userDetails} = useSelector((state) => state.user);
     const [navLinks, setNavLinks] = useState([]);
     const [selected, setSelected] = useState(0);
 
     useEffect(() => {
         let links;
-        if (userType === "Admin") {
+        if (userDetails.userType === "admin") {
             links = [
                 { title: "Dashboard", url: "/dashboard", icon: <AiOutlineHome />, selectedIcon: <AiFillHome /> },
                 { title: "Users", url: "users", icon: <HiOutlineUserGroup />, selectedIcon: <HiMiniUserGroup /> },
@@ -44,7 +45,7 @@ const Sidebar = () => {
                 { title: "Transactions", url: "transactions", icon: <RiFilePaperLine />, selectedIcon: <RiFilePaperFill /> },
             ];
             setNavLinks(links);
-        } else if (userType === "Merchant") {
+        } else if (userDetails.userType === "merchant") {
             links = [
                 { title: "Dashboard", url: "/dashboard", icon: <AiFillHome /> },
                 { title: "Orders", url: "/dashboard" },
@@ -52,7 +53,7 @@ const Sidebar = () => {
                 { title: "Transactions", url: "/dashboard" },
             ];
             setNavLinks(links);
-        } else if (userType === "Landlord") {
+        } else if (userDetails.userType === "landlord") {
             links = [
                 { title: "Dashboard", url: "/dashboard", icon: <AiFillHome /> },
                 { title: "Orders", url: "/dashboard" },

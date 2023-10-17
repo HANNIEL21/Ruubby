@@ -166,6 +166,7 @@ const Signup = () => {
                 >
                   <option>Sign up as</option>
                   <option value='consumer'>Consumer</option>
+                  <option value='admin'>Admin</option>
                   <option value='merchant'>Merchant</option>
                   <option value='landlord'>Landlord</option>
 

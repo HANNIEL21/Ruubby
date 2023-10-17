@@ -62,7 +62,7 @@ const Sidebar = () => {
             ];
             setNavLinks(links);
         }
-    }, [])
+    }, [userDetails.userType])
 
     return (
         <div className='drop-shadow-sm flex flex-col w-48 justify-between py-5 px-2'>

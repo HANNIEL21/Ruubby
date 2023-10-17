@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from "react-icons/fa";
@@ -19,7 +19,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { isLoading, isSuccess, isError, user } = useSelector((state) => state.auth);
+    const { isLoading, isError, user } = useSelector((state) => state.auth);
 
     const errorDiv = isError ? (
         <small className='text-red-600 text-center w-52 mt-4'>

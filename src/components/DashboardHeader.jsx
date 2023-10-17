@@ -4,11 +4,10 @@ import { FaOpencart, FaRegBell } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 
 const DashboardHeader = () => {
-    const {userDetails} = useSelector((state) => state.user);
+    const {token, userDetails} = useSelector((state) => state.user);
 
     const fullName = userDetails.firstName + " " + userDetails.lastName;
 
-    const [user, setUser] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -27,28 +26,28 @@ const DashboardHeader = () => {
             />
 
             <div className='flex justify-between align-center'>
-                {/* <div className='flex justify-between align-center'>
+                <div className='flex justify-between align-center'>
                     {token && (
                         <Link to='/shop/cart' className='my-0' >
                             <i className='text-2xl text-blue-800 flex cursor-pointer'>
-                                <FaRegBell />
+                                <FaRegBell className='m-0' />
                                 <h2 className='text-xs text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center p-1 -translate-y-2'>
-                                    {cartItems.length}
+                                    {/* {cartItems.length} */}
                                 </h2>
                             </i>
                         </Link>
                     )}
                     {token && (
-                        <Link to='/shop/cart' className='mx-5 my-0'>
+                        <Link to='/shop/cart' className='mx-5 my-0 '>
                             <i className='text-2xl text-blue-800 flex cursor-pointer'>
-                                <FaOpencart />
+                                <FaOpencart className='m-0' />
                                 <h2 className='text-xs text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center p-1 -translate-y-2'>
-                                    {cartItems.length}
+                                    {/* {cartItems.length} */}
                                 </h2>
                             </i>
                         </Link>
                     )}
-                </div> */}
+                </div>
                 <div>
                     <div class="relative inline-block text-left ">
                         <div>

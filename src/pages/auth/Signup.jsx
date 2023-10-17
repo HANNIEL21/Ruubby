@@ -14,7 +14,6 @@ import {
   setConfirmPassword,
   settype,
   setReferral,
-  setToken,
   isLoadingTrue,
   isLoadingFalse,
 } from '../../Redux/Features/User/UserSlice';
@@ -49,6 +48,8 @@ const Signup = () => {
       .then((res) => {
         dispatch(isLoadingFalse());
         console.log(res.data.data);
+
+        navigate("/shop")
         // Handle the response here, e.g., redirect on success or show an error message on failure
       })
       .catch((error) => {
@@ -59,9 +60,10 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     handleSignup();
+    dispatch(clearState());
   }
+
 
   return (
     <div className='flex h-screen w-full md:p-4'>

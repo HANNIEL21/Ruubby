@@ -14,6 +14,19 @@ AuthRouter.post("/signup", async (req, res) => {
         // Destructure the request body for better readability
         const { firstName, lastName, email, phoneNumber, userType, password, referral } = req.body;
 
+        // Checking if email already exists
+        const existingUser = await User.findOne({ email: email });
+
+        if (existingUser) {
+            // User with the same email already exists
+            return res.status(409).json({
+                success: false,
+                message: `User ${email} already exists`,
+                data: existingUser,
+            });
+        }
+
+
         // Call the validateSignup middleware to perform validation
         validateSignup(req, res, async () => {
             // Encrypt the password using CryptoJS
@@ -31,12 +44,12 @@ AuthRouter.post("/signup", async (req, res) => {
             });
 
             // Save the new user to the database
-            const savedUser = await newUser.save().then((data) => sendOtp(data, res));
+            const savedUser = await newUser.save();
 
             // Log the saved user and send it as a JSON response
             console.log(savedUser);
             res.status(201).json({
-                status: "Successful",
+                success: true,
                 message: `User ${firstName} has been created.`,
                 data: savedUser,
             });
@@ -45,7 +58,7 @@ AuthRouter.post("/signup", async (req, res) => {
         // Handle any errors and return a 500 Internal Server Error response
         console.error(err);
         res.status(500).json({
-            status: "FAILED",
+            success: false,
             message: `${err}`
         });
     }

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    clearState,
     isLoadingFalse,
     isLoadingTrue,
     setEmail,
@@ -45,13 +46,7 @@ const Login = () => {
             dispatch(setUserDetails(userData));
             dispatch(setToken(response.data.token));
 
-            if (userType === "consumer") {
-                navigate("/shop");
-            } else if (["merchant", "landlord", "admin"].includes(userType)) {
-                navigate("/dashboard");
-            } else {
-                // Handle unknown user type, if needed
-            }
+            navigate("/shop");
         } catch (error) {
             dispatch(isLoadingFalse());
             console.error("An error occurred during login:", error);
@@ -64,6 +59,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         handleLogin();
+        dispatch(clearState());
     }
 
     return (

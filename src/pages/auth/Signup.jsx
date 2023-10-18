@@ -16,6 +16,8 @@ import {
   setReferral,
   isLoadingTrue,
   isLoadingFalse,
+  setUserDetails,
+  setToken,
 } from '../../Redux/Features/User/UserSlice';
 
 
@@ -33,30 +35,38 @@ const Signup = () => {
     </small>
   ) : null;
 
-  const handleSignup = () => {
-    dispatch(isLoadingTrue());
+  const handleSignup = async () => {
+      dispatch(isLoadingTrue());
 
-    Axios.post("http://localhost:5000/Ruubby_api/v1/auth/signup", {
-      firstName: user.first_name,
-      lastName: user.last_name,
-      email: user.email,
-      phoneNumber: user.phone_number,
-      password: user.password,
-      referral: user.referral,
-      userType: user.user_type,
-    })
-      .then((res) => {
-        dispatch(isLoadingFalse());
-        console.log(res.data.data);
-
-        navigate("/shop")
-        // Handle the response here, e.g., redirect on success or show an error message on failure
-      })
-      .catch((error) => {
-        dispatch(isLoadingFalse());
-        console.log(error);
+    try {
+      const response = await Axios.post("http://localhost:5000/Ruubby_api/v1/auth/signup", {
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: user.email,
+        phoneNumber: user.phone_number,
+        password: user.password,
+        referral: user.referral,
+        userType: user.user_type,
       });
-  }
+
+      const userData = response.data.data;
+  
+      dispatch(isLoadingFalse());
+      dispatch(setUserDetails(userData));
+      dispatch(setToken(response.data.token));
+  
+      if (response.status === 200) {
+        navigate("/shop");
+      } else {
+        // Handle the response status if needed
+      }
+    } catch (error) {
+      dispatch(isLoadingFalse());
+      console.log(error.response.data.message);
+      // Handle the error here, e.g., dispatch an action to show an error message
+    }
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +88,7 @@ const Signup = () => {
           <div className='flex justify-center'>
             <img alt='logo' className='w-20' src="/Assets/logo.png" />
           </div>
-          <form method='POST'>
+          <form method='POST' onSubmit={handleSubmit} >
             <div className="grid grid-cols-1 gap-4 ">
               <div className='grid grid-cols-2 gap-4'>
                 <input

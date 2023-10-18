@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaOpencart, FaRegBell } from "react-icons/fa";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Logout } from '../Export';
 
 const DashboardHeader = () => {
-    const {token, userDetails} = useSelector((state) => state.user);
+    const { token, userDetails } = useSelector((state) => state.user);
 
     const fullName = userDetails.firstName + " " + userDetails.lastName;
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(Logout());
+        navigate("/");
+    }
+
     const [isOpen, setIsOpen] = useState(false);
+
 
     return (
         <div className='p-4 bg-white drop-shadow-sm flex items-center justify-between'>
@@ -66,11 +76,17 @@ const DashboardHeader = () => {
                             : "hidden"} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                             <div class="p-1 bg-gray-200 grid grid-cols-1 divide-y-8" role="none">
                                 <Link >
-                                    <div className='bg-gray-100 hover:bg-blue-800 p-2 text-md hover:text-white rounded-md font-semibold'>Profile</div>
+                                    <div className='bg-gray-100 hover:bg-blue-800 p-2 text-center text-md hover:text-white rounded-md font-semibold'>Profile</div>
                                 </Link>
-                                <Link >
-                                    <div className='bg-gray-100 hover:bg-red-500 p-2 text-md hover:text-white rounded-md font-semibold'>Logout</div>
+                                <Link to="/">
+                                    <button
+                                        className="bg-gray-100 w-full hover:bg-red-500 p-2 text-md hover:text-white rounded-md font-semibold"
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </button>
                                 </Link>
+
                             </div>
                         </div>
                     </div>

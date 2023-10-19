@@ -59,22 +59,22 @@ const DashboardHeader = () => {
                     )}
                 </div>
                 <div>
-                    <div class="relative inline-block text-left ">
+                    <div className="relative inline-block text-left ">
                         <div>
                             <button
                                 type="button"
                                 style={{ transition: "all .15s ease" }}
                                 onClick={() => setIsOpen(!isOpen)}
-                                class="inline-flex w-full justify-center rounded-full gap-x-1.5 bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 hover:text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-800" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                                <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                className="inline-flex w-full justify-center rounded-full gap-x-1.5 bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 hover:text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-800" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                                 <span>{fullName}</span>
                             </button>
                         </div>
 
-                        <div class={isOpen
+                        <div className={isOpen
                             ? "block absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                            : "hidden"} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                            <div class="p-1 bg-gray-200 grid grid-cols-1 divide-y-8" role="none">
+                            : "hidden"} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+                            <div className="p-1 bg-gray-200 grid grid-cols-1 divide-y-8" role="none">
                                 <Link >
                                     <div className='bg-gray-100 hover:bg-blue-800 p-2 text-center text-md hover:text-white rounded-md font-semibold'>Profile</div>
                                 </Link>

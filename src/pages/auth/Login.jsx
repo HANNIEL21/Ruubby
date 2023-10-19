@@ -29,9 +29,9 @@ const Login = () => {
     ) : null;
 
     const handleLogin = async () => {
-        dispatch(isLoadingTrue());
-
         try {
+            dispatch(isLoadingTrue());
+
             const response = await Axios.post("http://localhost:5000/Ruubby_api/v1/auth/login", {
                 email: user.email,
                 password: user.password,
@@ -40,13 +40,14 @@ const Login = () => {
             dispatch(isLoadingFalse());
 
             const userData = response.data;
-            const userType = userData.userType;
 
 
             dispatch(setUserDetails(userData));
             dispatch(setToken(response.data.token));
 
             navigate("/shop");
+            dispatch(clearState());
+
         } catch (error) {
             dispatch(isLoadingFalse());
             console.error("An error occurred during login:", error);
@@ -59,7 +60,6 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         handleLogin();
-        dispatch(clearState());
     }
 
     return (
@@ -111,7 +111,7 @@ const Login = () => {
                         <div className='mb-6'>
                             <button
                                 className='bg-[#0F3460] hover:bg-blue-900 w-full text-white rounded-xl font-bold p-2 md:p-3 focus:outline-none focus:shadow-outline'
-                                type='submmit'
+                                type='submit'
                                 onClick={handleSubmit}
                             >
                                 {isLoading ? (

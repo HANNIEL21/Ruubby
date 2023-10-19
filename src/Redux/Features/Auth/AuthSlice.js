@@ -35,25 +35,8 @@ export const authSlice = createSlice({
         isLoadingFalse: (state) => {
             state.isLoading = false;
         },
-        loginSuccess: (state) => {
-            state.isSuccess = true;
-            state.isError = false;
-            state.isLoading = false;
-        },
-        loginError: (state, { payload }) => {
-            state.isError = true;
-            state.isLoading = false;
-            state.errorMessage = payload;
-        },
         logout: (state) => {
-            state.user = {
-                email: "",
-                password: "",
-            };
-            state.isError = false;
-            state.isSuccess = false;
-            state.isLoading = false;
-            state.errorMessage = "";
+            state.user = {};
         },
     },
 });

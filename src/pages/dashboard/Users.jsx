@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import Axios from 'axios';
 import { DashboardTable } from '../../Export';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoadingTrue, isLoadingFalse, setUsers } from '../../Redux/Features/Dashboard/DashboardSlice';
+import { Spinner } from '../../Export'; // Import your Spinner component
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
+  const { users, isLoading } = useSelector((state) => state.dashboard);
+  const { userDetails } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const getUsers = async () => {
+
+      try {
+        dispatch(isLoadingTrue());
 
 
-  const userData = [
-    {
-      avatar: "",
-      name: "Ruubby Admin",
-      email: "RuubbyAdmin@gmail.com",
-      phoneNumber: "0123456789",
-      userType: "Admin"
-    },
-    {
-      avatar: "",
-      firstName: "Ruubby Merchant",
-      email: "RuubbyMerchant@gmail.com",
-      phoneNumber: "0123456789",
-      userType: "Merchant"
-    },
-    {
-      avatar: "",
-      firstName: "Ruubby Landlord",
-      email: "RuubbyLandlord@gmail.com",
-      phoneNumber: "0123456789",
-      userType: "Landlord"
-    }
-  ]
+        if (userDetails.userType === "admin") {
+          await Axios.get("http://localhost:5000/Ruubby_api/v1/user").then((res) => {
+            console.log(res.data.data);
+            dispatch(isLoadingFalse());
+            dispatch(setUsers(res.data.data));
+          })
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch(isLoadingFalse());
+      }
+    };
+
+    getUsers();
+  }, [dispatch, userDetails.userType]);
 
   const labels = [
     "Avatar",
@@ -36,24 +41,26 @@ const Users = () => {
     "Phone Number",
     "Type",
     "Actions"
-  ]
+  ];
 
   const filter = [
     "Consumers",
     "Admin",
     "Merchant",
     "Landlord"
-  ]
-
-  useEffect(() => {
-    setUsers(userData);
-  }, [])
+  ];
 
   return (
     <div className='px-5 py-6'>
-      <DashboardTable title="Users" labels={labels} filter={filter} data={userData} />
+      {isLoading ? (
+        <div>
+          <Spinner loaderText="Loading Users" />
+        </div>
+      ) : (
+        <DashboardTable title="Users" labels={labels} filter={filter} data={users} />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Users
+export default Users;

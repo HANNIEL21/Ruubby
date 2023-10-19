@@ -36,7 +36,7 @@ const Signup = () => {
   ) : null;
 
   const handleSignup = async () => {
-      dispatch(isLoadingTrue());
+    dispatch(isLoadingTrue());
 
     try {
       const response = await Axios.post("http://localhost:5000/Ruubby_api/v1/auth/signup", {
@@ -50,13 +50,15 @@ const Signup = () => {
       });
 
       const userData = response.data.data;
-  
+
       dispatch(isLoadingFalse());
       dispatch(setUserDetails(userData));
       dispatch(setToken(response.data.token));
-  
+
       if (response.status === 200) {
         navigate("/shop");
+        dispatch(clearState());
+
       } else {
         // Handle the response status if needed
       }
@@ -66,12 +68,11 @@ const Signup = () => {
       // Handle the error here, e.g., dispatch an action to show an error message
     }
   };
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSignup();
-    dispatch(clearState());
   }
 
 

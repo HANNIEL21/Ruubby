@@ -47,18 +47,18 @@ const Sidebar = () => {
             setNavLinks(links);
         } else if (userDetails.userType === "merchant") {
             links = [
-                { title: "Dashboard", url: "/dashboard", icon: <AiFillHome /> },
-                { title: "Orders", url: "/dashboard" },
-                { title: "Products", url: "/dashboard" },
-                { title: "Transactions", url: "/dashboard" },
+                { title: "Dashboard", url: "/dashboard", icon: <AiOutlineHome />, selectedIcon: <AiFillHome /> },
+                { title: "Orders", url: "orders", icon: <BsCart />, selectedIcon: <BsCartFill /> },
+                { title: "Products", url: "products", icon: <AiOutlineTags />, selectedIcon: <AiFillTags /> },
+                { title: "Transactions", url: "transactions", icon: <RiFilePaperLine />, selectedIcon: <RiFilePaperFill /> },
             ];
             setNavLinks(links);
         } else if (userDetails.userType === "landlord") {
             links = [
-                { title: "Dashboard", url: "/dashboard", icon: <AiFillHome /> },
-                { title: "Orders", url: "/dashboard" },
-                { title: "Properties", url: "/dashboard" },
-                { title: "Transactions", url: "/dashboard" },
+                { title: "Dashboard", url: "/dashboard", icon: <AiFillHome />, selectedIcon: <AiFillHome /> },
+                { title: "Orders", url: "orders", icon: <BsCart />, selectedIcon: <BsCartFill /> },
+                { title: "Properties", url: "properties", icon: <BsBuildings />, selectedIcon: <BsBuildingsFill /> },
+                { title: "Transactions", url: "transactions", icon: <RiFilePaperLine />, selectedIcon: <RiFilePaperFill />},
             ];
             setNavLinks(links);
         }
@@ -66,12 +66,12 @@ const Sidebar = () => {
 
     return (
         <div className='drop-shadow-sm flex flex-col w-48 justify-between py-5 px-2'>
-            <sectiton className="flex justify-center" >
+            <div className="flex justify-center" >
                 <Link to="/dashboard">
                     <img src="./Assets/logo.png" alt="Ruubby Logo" />
                 </Link>
-            </sectiton>
-            <sectiton>
+            </div>
+            <div>
                 {
                     navLinks.map((link, i) => (
                         <Link to={link.url} key={i}>
@@ -88,10 +88,10 @@ const Sidebar = () => {
                         </Link>
                     ))
                 }
-            </sectiton>
-            <sectiton>
+            </div>
+            <div>
                 Actions
-            </sectiton>
+            </div>
         </div>
     )
 }

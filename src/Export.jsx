@@ -26,6 +26,7 @@ import Transactions from "./pages/dashboard/Transactions";
 // Components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import FloatingButton from "./components/FloatingButton";
 import Slide from "./components/Slide";
 import Slider from "./components/Swiper";
 import ExploreGrid from "./components/ExploreGrid";
@@ -43,7 +44,11 @@ import { Logout } from "./Redux/Features/User/UserSlice";
 
 
 // Components Export
-export { Header, Footer, Slide, ExploreGrid, ExploreCard, Sidebar, Buttons, DashboardHeader, DashboardTable, Slider, Spinner };
+export { 
+    Header, Footer, FloatingButton, Slide, ExploreGrid, 
+    ExploreCard, Sidebar, Buttons, DashboardHeader, 
+    DashboardTable, Slider, Spinner 
+};
 
 // Screens Export
 export { Login, Signup };

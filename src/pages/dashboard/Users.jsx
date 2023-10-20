@@ -35,6 +35,7 @@ const Users = () => {
   }, [dispatch, userDetails.userType]);
 
   const labels = [
+    "Id",
     "Avatar",
     "Name",
     "Email",

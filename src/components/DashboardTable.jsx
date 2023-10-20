@@ -64,12 +64,11 @@ const DashboardTable = ({ title, labels, filter, data }) => {
                         />
                     </div>
                 </div>
-                <div className={`grid grid-cols-${labels.length + 1} rounded-md bg-gradient-to-r from-blue-800 to-purple-900 text-white text-sm font-semibold p-4 mt-4 min-w-[900px]`}>
+                <div className={`grid grid-cols-${labels.length} grid-flow-col auto-cols-max rounded-md bg-gradient-to-r from-blue-800 to-purple-900 text-white text-sm font-semibold p-4 mt-4 min-w-[900px]`}>
                     {labels.map((item, i) => (
                         <h2 key={i}>{item}</h2>
                     ))}
                 </div>
-
             </header>
             <main>
                 {

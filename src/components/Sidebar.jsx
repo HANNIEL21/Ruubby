@@ -67,7 +67,7 @@ const Sidebar = () => {
     return (
         <div className='drop-shadow-sm flex flex-col w-48 justify-between py-5 px-2'>
             <div className="flex justify-center" >
-                <Link to="/dashboard">
+                <Link to="/shop">
                     <img src="./Assets/logo.png" alt="Ruubby Logo" />
                 </Link>
             </div>

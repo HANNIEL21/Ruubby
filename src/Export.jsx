@@ -11,6 +11,12 @@ import Profile from "./pages/market/Profile";
 import Order from "./pages/market/Order";
 import Saved from "./pages/market/Saved";
 
+import Automobiles from "./pages/market/categories/Automobiles";
+import Fashion from "./pages/market/categories/Fashion";
+import KitchenAppliance from "./pages/market/categories/KitchenAppliance";
+import Laptop from "./pages/market/categories/Laptop";
+import Phone from "./pages/market/categories/Phone";
+
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardHome from "./pages/dashboard/DashboardHome";
@@ -24,6 +30,7 @@ import Transactions from "./pages/dashboard/Transactions";
 
 
 // Components
+import Categories from "./components/Categories";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingButton from "./components/FloatingButton";
@@ -47,7 +54,7 @@ import { Logout } from "./Redux/Features/User/UserSlice";
 export { 
     Header, Footer, FloatingButton, Slide, ExploreGrid, 
     ExploreCard, Sidebar, Buttons, DashboardHeader, 
-    DashboardTable, Slider, Spinner 
+    DashboardTable, Slider, Spinner, Categories,
 };
 
 // Screens Export
@@ -55,6 +62,7 @@ export { Login, Signup };
 export { SharedLayout, Home };
 export { DashboardLayout, Dashboard, DashboardHome, Users, Merchants, Landlords, Products, Properties, Orders, Transactions };
 export { Shop, ShopHome, Profile, Order, Saved };
+export {Automobiles, Fashion, KitchenAppliance, Laptop, Phone};
 
 // Redux Export
 export { authSlice, userSlice, Logout };

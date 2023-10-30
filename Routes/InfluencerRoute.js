@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const InfluencerRoute = express.Router();
 
 InfluencerRoute.get('/', (req, res) => {
@@ -9,4 +9,4 @@ InfluencerRoute.get("/new", (req, res) => {
     res.send("new influencer");
 });
 
-module.exports = InfluencerRoute;
+export default InfluencerRoute;

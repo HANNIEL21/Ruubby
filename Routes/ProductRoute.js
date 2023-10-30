@@ -1,11 +1,11 @@
-const express = require('express');
-const multer = require('multer');
-const Product = require('../models/product');
+import { Router } from 'express';
+import multer, { diskStorage } from 'multer';
+import Product, { find, findById, findByIdAndRemove } from '../models/product';
 
-const ProductRouter = express.Router();
+const ProductRouter = Router();
 
 // File Upload
-const storage = multer.diskStorage({
+const storage = diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/Assets/uploads');
     },
@@ -54,7 +54,7 @@ ProductRouter.post("/", upload.array('images', 5), async (req, res) => {
 // Get all products
 ProductRouter.get("/", async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await find();
         if (products.length === 0) {
             return res.status(204).json({
                 success: true,
@@ -89,7 +89,7 @@ ProductRouter.get("/", async (req, res) => {
 // Get products by owner
 ProductRouter.get("/:id", async (req, res) => {
     try {
-        const products = await Product.find({ owner: req.params.id });
+        const products = await find({ owner: req.params.id });
         if (products.length === 0) {
             return res.status(200).json({
                 success: true,
@@ -115,7 +115,7 @@ ProductRouter.get("/:id", async (req, res) => {
 // Update a product
 ProductRouter.put("/:id", async (req, res) => {
     try {
-        const existingProduct = await Product.findById(req.params.id);
+        const existingProduct = await findById(req.params.id);
         if (!existingProduct) {
             return res.status(404).json({
                 success: false,
@@ -143,7 +143,7 @@ ProductRouter.put("/:id", async (req, res) => {
 // Delete a product
 ProductRouter.delete("/:id", async (req, res) => {
     try {
-        const product = await Product.findByIdAndRemove(req.params.id);
+        const product = await findByIdAndRemove(req.params.id);
         if (!product) {
             return res.status(404).json({
                 success: false,
@@ -163,4 +163,4 @@ ProductRouter.delete("/:id", async (req, res) => {
     }
 });
 
-module.exports = ProductRouter;
+export default ProductRouter;

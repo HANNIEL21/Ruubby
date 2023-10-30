@@ -1,7 +1,7 @@
-const express = require("express");
-const User = require("../models/user.js");
-const { verifyTokenAndAuthorization } = require("../utils/verifyToken.js");
-const userRouter = express.Router();
+import { Router } from "express";
+import { verifyTokenAndAuthorization } from "../utils/verifyToken.js";
+import User from "../models/user.js";
+const userRouter = Router();
 
 
 function hidePhoneNumber(phoneNumber) {
@@ -68,7 +68,7 @@ userRouter.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+        const updatedUser = await findByIdAndUpdate(req.params.id, {
             $set: req.body
         }, { new: true });
         res.status(200).json(updatedUser);
@@ -78,4 +78,4 @@ userRouter.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
 })
 
-module.exports = userRouter;
+export default userRouter;

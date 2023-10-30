@@ -1,4 +1,4 @@
-module.exports.validateSignup = (req, res, next) => {
+export function validateSignup(req, res, next) {
     const { firstName, lastName, email, password, phoneNumber, userType } = req.body;
 
     if (!firstName || !lastName || !email || !password || !phoneNumber || !userType) {
@@ -31,4 +31,4 @@ module.exports.validateSignup = (req, res, next) => {
 
     // If all validation checks pass, proceed to the next middleware
     next();
-};
+}

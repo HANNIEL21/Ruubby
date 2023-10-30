@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { model } = mongoose;
+import mongoose, { model } from "mongoose";
+
 
 const OrderSchema = new mongoose.Schema(
     {
@@ -22,4 +22,4 @@ const OrderSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = model("User", OrderSchema);
+export default mongoose.model("User", OrderSchema);

@@ -11,5 +11,5 @@ const PropertySchema = new Schema(
 
 const Property = model("Property", PropertySchema);
 
-module.exports = Property;
+export default Property;
 

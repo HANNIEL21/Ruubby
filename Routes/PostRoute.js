@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 const postRoute = express.Router();
 
-postRoute.get('/', (req,res)=> {
+postRoute.get('/', (req, res) => {
     res.send("All posts");
 });
 
@@ -9,4 +9,4 @@ postRoute.get("/new", (req, res) => {
     res.send("new post");
 });
 
-export default postRoute;
+module.exports = postRoute;

@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express');
 const merchantRoute = express.Router();
 
 merchantRoute.get('/', (req, res) => {
@@ -9,4 +9,4 @@ merchantRoute.get("/new", (req, res) => {
     res.send("new merchant");
 });
 
-export default merchantRoute;
+module.exports = merchantRoute;

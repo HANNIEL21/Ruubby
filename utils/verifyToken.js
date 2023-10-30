@@ -1,4 +1,4 @@
-import Jwt from "jsonwebtoken";
+const Jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.token;
@@ -14,15 +14,14 @@ const verifyToken = (req, res, next) => {
     }
 }
 
-
 const verifyTokenAndAuthorization = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
             next()
-        }else{
-            res.status(403).json({"message":"Forbiden Access"}) ;
+        } else {
+            res.status(403).json({ "message": "Forbidden Access" });
         }
-    })
+    });
 }
 
-export {verifyToken ,verifyTokenAndAuthorization};
+module.exports = { verifyToken, verifyTokenAndAuthorization };

@@ -1,25 +1,23 @@
-import express from 'express';
-import multer from "multer";
-import Product from '../models/product';
+const express = require('express');
+const multer = require('multer');
+const Product = require('../models/product');
 
 const ProductRouter = express.Router();
 
-// FIle Upload
-
+// File Upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/Assets/uploads')
+        cb(null, 'public/Assets/uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname + '-' + Date.now())
-    }
+        cb(null, file.originalname + '-' + Date.now());
+    },
 });
 const upload = multer({ storage: storage });
 
-
 // Create a product
 ProductRouter.post("/", upload.array('images', 5), async (req, res) => {
-    const { title, desc, category, owner, price } = req.body;
+    const { title, desc, category, owner, price, brand, size } = req.body;
 
     try {
         const images = req.files.map(file => ({
@@ -33,19 +31,22 @@ ProductRouter.post("/", upload.array('images', 5), async (req, res) => {
             owner,
             price,
             images,
+            brand,
+            size,
         });
 
         const savedProduct = await newProduct.save();
 
-        res.status(200).json({
-            status: "Successful",
+        res.status(201).json({
+            success: true,
             message: "Product has been added",
             data: savedProduct,
         });
     } catch (error) {
         res.status(500).json({
-            status: "Failed",
-            error: "Internal server error",
+            success: false,
+            message: "Internal server error",
+            error: error,
         });
     }
 });
@@ -53,23 +54,34 @@ ProductRouter.post("/", upload.array('images', 5), async (req, res) => {
 // Get all products
 ProductRouter.get("/", async (req, res) => {
     try {
-        const products = await Product.find()
-        if (product.length === 0) {
-            res.status(200).json({
-                status: "Successful",
-                message: "No product Found",
-                data: null,
-            })
+        const products = await Product.find();
+        if (products.length === 0) {
+            return res.status(204).json({
+                success: true,
+                message: "Products List is Empty",
+                data: [],
+            });
         }
+
+        const simplifiedProducts = products.map(product => ({
+            id: product._id,
+            image: product.images[0].filename, // Assuming you want the first image
+            name: product.title,
+            price: product.price,
+            quantity: product.quantity,
+            category: product.category,
+        }));
 
         res.status(200).json({
             success: true,
-            data: products,
-        })
+            message: "All Products",
+            data: simplifiedProducts,
+        });
     } catch (error) {
         res.status(500).json({
-            status: "Failed",
-            error: error
+            success: false,
+            message: "Failed to retrieve products",
+            error: error,
         });
     }
 });
@@ -77,76 +89,78 @@ ProductRouter.get("/", async (req, res) => {
 // Get products by owner
 ProductRouter.get("/:id", async (req, res) => {
     try {
-        const products = await Product.find({ owner: req.params.id })
-        if (products.length == 0) {
-            res.status(200).json({
-                status: "Successful",
-                message: "Please Upload A Product",
+        const products = await Product.find({ owner: req.params.id });
+        if (products.length === 0) {
+            return res.status(200).json({
+                success: true,
+                message: "No products found for this user",
                 data: products,
             });
-
         }
 
         res.status(200).json({
-            status: "Successful",
-            message: "Data from this User",
+            success: true,
+            message: "Products from this User",
             data: products,
-        })
+        });
     } catch (error) {
         res.status(500).json({
-            status: "Failed",
+            success: false,
+            message: "Failed to retrieve products for this user",
             error: error,
-            data: null,
-        })
+        });
     }
-})
+});
 
 // Update a product
 ProductRouter.put("/:id", async (req, res) => {
     try {
         const existingProduct = await Product.findById(req.params.id);
         if (!existingProduct) {
-            res.status(404).json({
-                status: "Failed",
+            return res.status(404).json({
+                success: false,
                 message: "Product Not Found",
-                data: existingProduct,
-            })
-
-            existingProduct.set(req.body);
-            const updatedProduct = existingProduct.save();
-
-            res.status(200).json({
-                status: "Successful",
-                message: "Product Updated",
-                data: updatedProduct,
-            })
-
+            });
         }
+
+        existingProduct.set(req.body);
+        const updatedProduct = await existingProduct.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Product Updated",
+            data: updatedProduct,
+        });
     } catch (error) {
         res.status(500).json({
-            status: "Failed",
+            success: false,
+            message: "Failed to update the product",
             error: error,
-        })
+        });
     }
-})
+});
 
 // Delete a product
 ProductRouter.delete("/:id", async (req, res) => {
     try {
-        const product = await Product.find({ _id: req.params.id });
+        const product = await Product.findByIdAndRemove(req.params.id);
         if (!product) {
-            res.status(404).json({
-                status: "Failed",
-                message: "product not found",
-                data: product
+            return res.status(404).json({
+                success: false,
+                message: "Product not found",
             });
         }
-        res.status(204)
+        res.status(204).json({
+            success: true,
+            message: "Product deleted",
+        });
     } catch (error) {
         res.status(500).json({
-            status: "Failed",
+            success: false,
             message: "Failed to delete product",
-            error: error
-        })
+            error: error,
+        });
     }
-})
+});
+
+module.exports = ProductRouter;

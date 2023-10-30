@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-
+const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const OtpSchema = new Schema({
@@ -7,8 +6,8 @@ const OtpSchema = new Schema({
     opt: { type: String },
     createdAt: { type: Date },
     expiresAt: { type: Date },
-})
+});
 
 const Otp = model("Otp", OtpSchema);
 
-export default Otp;
+module.exports = Otp;

@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 const orderRoute = express.Router();
 
 orderRoute.get('/', (req,res)=> {
@@ -9,4 +9,4 @@ orderRoute.get("/new", (req, res) => {
     res.send("new order");
 });
 
-export default orderRoute;
+module.exports = orderRoute;

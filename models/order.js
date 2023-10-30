@@ -1,5 +1,5 @@
-import mongoose, { model } from "mongoose";
-
+const mongoose = require("mongoose");
+const { model } = mongoose;
 
 const OrderSchema = new mongoose.Schema(
     {
@@ -17,9 +17,9 @@ const OrderSchema = new mongoose.Schema(
         ],
         amount: { type: Number, required: true },
         address: { type: Object, required: true },
-        status: {type: String, default: "pending"}
+        status: { type: String, default: "pending" }
     },
     { timestamps: true }
 );
 
-export default mongoose.model("User", OrderSchema);
+module.exports = model("User", OrderSchema);

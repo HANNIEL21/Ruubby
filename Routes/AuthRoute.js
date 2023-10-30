@@ -1,9 +1,9 @@
-import express from "express";
-import CryptoJS from "crypto-js";
-import Jwt from "jsonwebtoken";
-import User from "../models/user.js";
-import { validateSignup } from "../utils/validateForm.js";
-import sendOtp from "../utils/createAndVerifyOtp.js";
+const express = require("express");
+const CryptoJS = require("crypto-js");
+const Jwt = require("jsonwebtoken");
+const User = require("../models/user.js");
+const { validateSignup } = require("../utils/validateForm.js");
+const sendOtp = require("../utils/createAndVerifyOtp.js");
 
 const AuthRouter = express.Router();
 
@@ -87,4 +87,4 @@ AuthRouter.post("/login", async (req, res) => {
     }
 });
 
-export default AuthRouter;
+module.exports = AuthRouter;

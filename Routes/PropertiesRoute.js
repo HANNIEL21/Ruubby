@@ -1,12 +1,12 @@
-import express from "express";
-const propertiesRoute = express.Router();
+const express = require("express");
+const PropertiesRoute = express.Router();
 
-propertiesRoute.get('/', (req,res)=> {
+PropertiesRoute.get('/', (req, res) => {
     res.send("All propertiess");
 });
 
-propertiesRoute.get("/new", (req, res) => {
+PropertiesRoute.get("/new", (req, res) => {
     res.send("new properties");
 });
 
-export default propertiesRoute;
+module.exports = PropertiesRoute;

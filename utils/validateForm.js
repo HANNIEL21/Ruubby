@@ -1,4 +1,4 @@
-export const validateSignup = (req, res, next) => {
+module.exports.validateSignup = (req, res, next) => {
     const { firstName, lastName, email, password, phoneNumber, userType } = req.body;
 
     if (!firstName || !lastName || !email || !password || !phoneNumber || !userType) {

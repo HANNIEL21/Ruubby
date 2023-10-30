@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer";
-import CryptoJS from "crypto-js";
-import Otp from "../models/otp.js";
+const nodemailer = require("nodemailer");
+const CryptoJS = require("crypto-js");
+const Otp = require("../models/otp.js");
 
 const transporter = nodemailer.createTransport({
     host: "smpt.gmail.com",  
@@ -80,5 +80,4 @@ const sendOtp = async ({ _id, email, firstName }, res) => {
 
 // Define a function to generate email content
 
-
-export default sendOtp;
+module.exports = sendOtp;

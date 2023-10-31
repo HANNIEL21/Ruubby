@@ -4,10 +4,11 @@ import { DashboardTable } from '../../Export';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const data = [
-    {name: "John Carter", item:"Nike Air Force", price:"20,000", status: "Pending", data: Date.now()}
+    {id:"", name: "John Carter", item:"Nike Air Force", price:"20,000", status: "Pending", data: Date.now()}
   ];
 
   const labels = [
+    "Id",
     "Customer",
     "Ordered Item",
     "Price",

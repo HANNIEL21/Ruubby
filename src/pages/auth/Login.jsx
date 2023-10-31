@@ -32,7 +32,7 @@ const Login = () => {
         try {
             dispatch(isLoadingTrue());
 
-            const response = await Axios.post("http://localhost:5000/Ruubby_api/v1/auth/login", {
+            const response = await Axios.post("http://localhost:5000/api/v1/auth/login", {
                 email: user.email,
                 password: user.password,
             });

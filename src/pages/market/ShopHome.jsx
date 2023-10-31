@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Slider, Categories } from '../../Export';
+import { Slider, Categories, ItemGrid } from '../../Export';
 
 const ShopHome = () => {
     return (
@@ -30,6 +30,15 @@ const ShopHome = () => {
             </section>
             <section>
                 <Categories />
+            </section>
+            <section>
+                <div className='flex justify-between items-center px-3'>
+                    <h2 className='text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-pink-900 m-0'>Today's Deal</h2>
+                    <Link>
+                        <h2 className='cursor-pointer text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-pink-900 m-0'>See all items</h2>
+                    </Link>
+                </div>
+                <ItemGrid />
             </section>
         </div>
 

@@ -37,11 +37,11 @@ const Sidebar = () => {
             links = [
                 { title: "Dashboard", url: "/dashboard", icon: <AiOutlineHome />, selectedIcon: <AiFillHome /> },
                 { title: "Users", url: "users", icon: <HiOutlineUserGroup />, selectedIcon: <HiMiniUserGroup /> },
+                { title: "Landlords", url: "landlords", icon: <HiOutlineUser />, selectedIcon: <HiUser /> },
+                { title: "Merchants", url: "merchants", icon: <AiOutlineShop />, selectedIcon: <AiFillShop /> },
                 { title: "Orders", url: "orders", icon: <BsCart />, selectedIcon: <BsCartFill /> },
                 { title: "Products", url: "products", icon: <AiOutlineTags />, selectedIcon: <AiFillTags /> },
                 { title: "Properties", url: "properties", icon: <BsBuildings />, selectedIcon: <BsBuildingsFill /> },
-                { title: "Landlords", url: "landlords", icon: <HiOutlineUser />, selectedIcon: <HiUser /> },
-                { title: "Merchants", url: "merchants", icon: <AiOutlineShop />, selectedIcon: <AiFillShop /> },
                 { title: "Transactions", url: "transactions", icon: <RiFilePaperLine />, selectedIcon: <RiFilePaperFill /> },
             ];
             setNavLinks(links);

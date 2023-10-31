@@ -17,6 +17,7 @@ import {
   Login,
   Signup,
   Profile,
+  Product,
   Saved,
   Order,
 } from './Export';
@@ -32,6 +33,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/shop' element={<Shop />}>
           <Route index element={<ShopHome />} />
+          <Route path='/shop/product/:id' element={<Product />} />
         </Route>
         {token && (
           <>

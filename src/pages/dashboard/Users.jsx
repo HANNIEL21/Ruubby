@@ -18,7 +18,7 @@ const Users = () => {
 
 
         if (userDetails.userType === "admin") {
-          await Axios.get("http://localhost:5000/Ruubby_api/v1/user").then((res) => {
+          await Axios.get("https://api-ruubby-com.onrender.com/api/v1/user").then((res) => {
             console.log(res.data.data);
             dispatch(isLoadingFalse());
             dispatch(setUsers(res.data.data));

@@ -6,15 +6,15 @@ const Products = () => {
 
   const { userDetails } = useSelector((state) => state.user);
   const data = [
-    { id: "", name: "John Carter", item: "Nike Air Force", price: "20,000", data: Date.now() }
+    { id: "", name: "John Carter", item: "Nike Air Force",  price: "20,000", category: "", data: Date.now() }
   ];
 
   const labels = [
     "Id",
-    "Image",
     userDetails.userType === "admin" ? "Vendor" : "null",
     "Name",
     "Price",
+    "Category",
     "Quantity",
     "Actions"
   ];

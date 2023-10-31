@@ -54,12 +54,59 @@ const FloatingButton = ({ title }) => {
 
                                             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
 
-                                                <div className="mt-2">
-                                                    <p className="text-sm text-gray-500">
-                                                        Are you sure you want to deactivate your account? All of your data will be permanently
-                                                        removed. This action cannot be undone.
-                                                    </p>
-                                                </div>
+                                                <form className="mt-2 grid grid-cols-1 gap-2">
+                                                    <div className='grid grid-cols-2 gap-2'>
+                                                        <label className='flex flex-col'>
+                                                            <span>Name</span>
+                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Name' />
+                                                        </label>
+                                                        <label className='flex flex-col'>
+                                                            <span>Price</span>
+                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Price' />
+                                                        </label>
+                                                        <label>
+                                                            <span>Category</span>
+                                                            <select
+                                                                id='business-type'
+                                                                name='user_id'
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]'
+                                                                onChange={(e) => { }}
+                                                            >
+                                                                <option>Select Item Category</option>
+                                                                <option value='consumer'>Consumer</option>
+                                                                <option value='admin'>Admin</option>
+                                                                <option value='merchant'>Merchant</option>
+                                                                <option value='landlord'>Landlord</option>
+
+                                                            </select>
+                                                        </label>
+                                                        <label className='flex flex-col'>
+                                                            <span>Quantity</span>
+                                                            <input type="number" defaultValue="0" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' />
+                                                        </label>
+                                                        <label className='flex flex-col'>
+                                                            <span>Brand (Optional)</span>
+                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Brand' />
+                                                        </label>
+                                                        <label className='flex flex-col'>
+                                                            <span>Size (Optional)</span>
+                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Size' />
+                                                        </label>
+                                                    </div>
+
+
+                                                    <div className="grid grid-cols-2 gap-2">
+
+                                                    </div>
+                                                    <label className='flex flex-col'>
+                                                        <span>Description</span>
+                                                        <textarea name="" id="" cols="10" rows="4" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Description'></textarea>
+                                                    </label>
+                                                    <label htmlFor="">
+                                                        <span>Images</span>
+                                                        <input type="file" name="" id="" className='appearance-none border-dashed border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Description' />
+                                                    </label>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

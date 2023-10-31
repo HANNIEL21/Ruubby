@@ -35,7 +35,7 @@ const Properties = () => {
   ]
 
   const labels = [
-    "Image",
+    "Id",
     "Name",
     "Location",
     "Owner",

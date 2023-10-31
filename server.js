@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import http from "http"; 
-import { config as dotenvConfig } from 'dotenv';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import AuthRoute from './Routes/AuthRoute.js';
 import UserRoute from './Routes/UserRoutes.js';
@@ -13,8 +12,7 @@ import PropertiesRoute from './Routes/PropertiesRoute.js';
 
 // Config
 const app = express();
-const server = http.createServer(app);
-dotenvConfig();
+dotenv.config();
 
 // Environment Variables
 const uri = process.env.DB_URI;
@@ -48,6 +46,6 @@ app.use(url + 'influencer', InfluencerRoute);
 app.use(url + 'order', OrderRoute);
 
 // Start the server
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(`Ruubby Server is running on port ${port}`);
 });

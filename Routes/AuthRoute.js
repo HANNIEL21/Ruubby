@@ -1,88 +1,95 @@
-import  express from "express";
-import  Jwt from "jsonwebtoken";
-import  User from "../models/user.js";
-import  { validateSignup } from "../utils/validateForm.js";
-import  sendOtp from "../utils/createAndVerifyOtp.js";
+import express from "express";
+import Jwt from "jsonwebtoken";
+import User from "../models/user.js";
+import { validateSignup } from "../utils/validateForm.js";
+import CryptoJS from "crypto-js";
 
 const AuthRouter = express.Router();
 
-
-
+// User signup route
 AuthRouter.post("/signup", async (req, res) => {
     try {
-        // Destructure the request body for better readability
         const { firstName, lastName, email, phoneNumber, userType, password, referral } = req.body;
 
-        // Checking if email already exists
         const existingUser = await User.findOne({ email: email });
 
         if (existingUser) {
-            // User with the same email already exists
             return res.status(409).json({
                 success: false,
-                message: `User ${email} already exists`,
-                data: existingUser,
+                message: `User with email ${email} already exists`,
+                data: null,
             });
         }
 
+        // Use validateSignup middleware for form validation (if it exists)
+        if (validateSignup) {
+            validateSignup(req, res, async () => {
+                // Encrypt the password using CryptoJS
+                const encryptedPassword = CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString();
 
-        // Call the validateSignup middleware to perform validation
-        validateSignup(req, res, async () => {
-            // Encrypt the password using CryptoJS
-            const encryptedPassword = CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString();
+                const newUser = new User({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: encryptedPassword,
+                    phoneNumber: phoneNumber,
+                    userType: userType,
+                    referral: referral,
+                });
 
-            // Create a new User instance
-            const newUser = new User({
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: encryptedPassword, // Assign the encrypted password
-                phoneNumber: phoneNumber,
-                userType: userType,
-                referral: referral,
+                const savedUser = await newUser.save();
+
+                // Remove sensitive information from the response
+                const { password, ...userData } = savedUser._doc;
+
+                res.status(201).json({
+                    success: true,
+                    message: `User ${firstName} has been created.`,
+                    data: userData,
+                });
             });
-
-            // Save the new user to the database
-            const savedUser = await newUser.save();
-
-            // Log the saved user and send it as a JSON response
-            console.log(savedUser);
-            res.status(201).json({
-                success: true,
-                message: `User ${firstName} has been created.`,
-                data: savedUser,
-            });
-        });
+        }
     } catch (err) {
-        // Handle any errors and return a 500 Internal Server Error response
         console.error(err);
         res.status(500).json({
             success: false,
-            message: `${err}`
+            message: "Internal server error",
+            error: err,
         });
     }
 });
 
-
-
+// User login route
 AuthRouter.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
-        !user && res.status(401).json({ "message": "Wrong user credential!" });
-        const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
-        const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-        OriginalPassword !== req.body.password && res.status(500).json({ "message": "Wrong user credentials" });
+        if (!user) {
+            return res.status(401).json({ message: "Wrong user credentials" });
+        }
+
+        const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
+        const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+        if (originalPassword !== req.body.password) {
+            return res.status(401).json({ message: "Wrong user credentials" });
+        }
+
         const token = Jwt.sign({
             id: user._id,
             isAdmin: user.isAdmin
         }, process.env.JWT_SEC, { expiresIn: "1d" });
 
-        const { password, ...data } = user._doc;
+        // Remove sensitive information from the response
+        const { password, ...userData } = user._doc;
 
-        res.status(200).json({ ...data, token });
+        res.status(200).json({ ...userData, token });
     } catch (error) {
-
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error,
+        });
     }
 });
 

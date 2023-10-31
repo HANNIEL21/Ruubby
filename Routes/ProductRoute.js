@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer, { diskStorage } from 'multer';
-import Product, { find, findById, findByIdAndRemove } from '../models/product';
+import Product from '../models/product.js';
 
 const ProductRouter = Router();
 
@@ -54,7 +54,7 @@ ProductRouter.post("/", upload.array('images', 5), async (req, res) => {
 // Get all products
 ProductRouter.get("/", async (req, res) => {
     try {
-        const products = await find();
+        const products = await Product.find();
         if (products.length === 0) {
             return res.status(204).json({
                 success: true,

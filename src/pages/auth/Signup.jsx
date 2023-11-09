@@ -39,7 +39,7 @@ const Signup = () => {
     dispatch(isLoadingTrue());
 
     try {
-      const response = await Axios.post("http://localhost:5000/Ruubby_api/v1/auth/signup", {
+      const response = await Axios.post("https://api-ruubby-com.onrender.com/api/v1/auth/signup", {
         firstName: user.first_name,
         lastName: user.last_name,
         email: user.email,

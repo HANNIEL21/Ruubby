@@ -5,6 +5,10 @@ import Signup from "./pages/auth/Signup";
 import SharedLayout from "./pages/SharedLayout";
 import Home from "./pages/Home";
 
+import Property from "./pages/property/Property";
+import PropertyHome from "./pages/property/PropertyHome";
+import PropertyDetails from "./pages/property/PropertyDetails";
+
 import Shop from "./pages/market/Shop";
 import ShopHome from "./pages/market/ShopHome";
 import Profile from "./pages/market/Profile";
@@ -47,7 +51,7 @@ import DashboardHeader from "./components/DashboardHeader";
 import DashboardTable from "./components/DashboardTable";
 
 // Utils
-import Currency  from './utils/currency';
+import Currency from './utils/currency';
 
 // Redux
 import { authSlice } from "./Redux/Features/Auth/AuthSlice";
@@ -71,6 +75,7 @@ export {
 // Screens Export
 export { Login, Signup };
 export { SharedLayout, Home };
+export { Property, PropertyDetails, PropertyHome };
 export { DashboardLayout, Dashboard, DashboardHome, Users, Merchants, Landlords, Products, Properties, Orders, Transactions };
 export { Shop, ShopHome, Profile, Product, Order, Saved };
 export { Automobiles, Fashion, KitchenAppliance, Laptop, Phone };

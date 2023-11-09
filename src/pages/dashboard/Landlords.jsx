@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import Axios from 'axios';
 import { DashboardTable } from '../../Export';
 import { useDispatch, useSelector } from 'react-redux';
-import { isLoadingTrue, isLoadingFalse, setUsers } from '../../Redux/Features/Dashboard/DashboardSlice';
+import { isLoadingTrue, isLoadingFalse, setLandlords, clearState } from '../../Redux/Features/Dashboard/DashboardSlice';
 import { Spinner } from '../../Export'; // Import your Spinner component
 
 const Landlords = () => {
   const dispatch = useDispatch();
-  const { users, isLoading } = useSelector((state) => state.dashboard);
+  const { landlords, isLoading } = useSelector((state) => state.dashboard);
   const { userDetails } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -15,13 +15,13 @@ const Landlords = () => {
 
       try {
         dispatch(isLoadingTrue());
+        dispatch(clearState());
 
 
         if (userDetails.userType === "admin") {
-          await Axios.get("https://api-ruubby-com.onrender.com/api/v1/landlord").then((res) => {
-            console.log(res.data.data);
+          await Axios.get("http://localhost:5000/api/v1/landlord").then((res) => {
+            dispatch(setLandlords(res.data.data));
             dispatch(isLoadingFalse());
-            dispatch(setUsers(res.data.data));
           })
         }
       } catch (error) {
@@ -57,7 +57,7 @@ const Landlords = () => {
           <Spinner loaderText="Loading Landlords" />
         </div>
       ) : (
-        <DashboardTable title="Landlords" labels={labels} filter={filter} data={users} />
+        <DashboardTable title="Landlords" labels={labels} filter={filter} data={landlords} />
       )}
     </div>
   )

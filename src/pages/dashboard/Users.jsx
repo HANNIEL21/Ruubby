@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Axios from 'axios';
 import { DashboardTable } from '../../Export';
 import { useDispatch, useSelector } from 'react-redux';
-import { isLoadingTrue, isLoadingFalse, setUsers } from '../../Redux/Features/Dashboard/DashboardSlice';
+import { isLoadingTrue, isLoadingFalse, setUsers, clearState } from '../../Redux/Features/Dashboard/DashboardSlice';
 import { Spinner } from '../../Export'; // Import your Spinner component
 
 const Users = () => {
@@ -15,13 +15,13 @@ const Users = () => {
 
       try {
         dispatch(isLoadingTrue());
+        dispatch(clearState());
 
 
         if (userDetails.userType === "admin") {
-          await Axios.get("https://api-ruubby-com.onrender.com/api/v1/user").then((res) => {
-            console.log(res.data.data);
-            dispatch(isLoadingFalse());
+          await Axios.get("http://localhost:5000/api/v1/user").then((res) => {
             dispatch(setUsers(res.data.data));
+            dispatch(isLoadingFalse());
           })
         }
       } catch (error) {

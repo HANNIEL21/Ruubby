@@ -16,6 +16,15 @@ export const dashboardSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
+        clearState: (state) => {
+            state.users = [];
+            state.orders = [];
+            state.products = [];
+            state.properties = [];
+            state.merchants = [];
+            state.landlords = [];
+            return state;
+        },
         setUsers: (state, { payload }) => {
             state.users = payload;
         },
@@ -44,6 +53,7 @@ export const dashboardSlice = createSlice({
 });
 
 export const {
+    clearState,
     setUsers,
     setLandlords,
     setMerchants,

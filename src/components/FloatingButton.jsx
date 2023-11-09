@@ -1,10 +1,63 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useRef, useState } from 'react';
+import axios from "axios";
+import { Dialog, Transition } from '@headlessui/react';
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+    setName,
+    setPrice,
+    setOwner,
+    setCategory,
+    setImage,
+    setQuantity,
+    setBrand,
+    setDesc,
+} from '../Redux/Features/Product/ProductSlice';
 
 const FloatingButton = ({ title }) => {
     const [open, setOpen] = useState(false);
+    const cancelButtonRef = useRef(null);
 
-    const cancelButtonRef = useRef(null)
+    const dispatch = useDispatch();
+    const { product } = useSelector((state) => state.item);
+    const { user } = useSelector((state) => state.user);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(); // Create a FormData object to send the images
+
+        // Append each selected image to the FormData object
+        for (let i = 0; i < product.images.length; i++) {
+            formData.append("images", product.images[i]);
+        }
+
+        // Append other product data to the FormData
+        formData.append("title", product.name);
+        formData.append("desc", product.desc);
+        formData.append("category", product.category);
+        formData.append("brand", product.brand);
+        formData.append("size", product.size);
+        formData.append("owner", user._id);
+        formData.append("price", product.price);
+        formData.append("quantity", product.quantity);
+        formData.append("images", product.images);
+
+        try {
+            const response = await axios.post("http://localhost:5000/api/v1/product", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data", // Set the correct content type for form data
+                },
+            });
+
+            console.log("Product created:", response.data);
+        } catch (error) {
+            console.error("Error creating product:", error);
+        }
+    };
+
+
 
     return (
         <>
@@ -58,11 +111,20 @@ const FloatingButton = ({ title }) => {
                                                     <div className='grid grid-cols-2 gap-2'>
                                                         <label className='flex flex-col'>
                                                             <span>Name</span>
-                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Name' />
+                                                            <input
+                                                                type="text"
+                                                                onChange={(e) => dispatch(setName(e.target.value))}
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]'
+                                                                placeholder='Enter Item Name'
+                                                            />
                                                         </label>
                                                         <label className='flex flex-col'>
                                                             <span>Price</span>
-                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Price' />
+                                                            <input
+                                                                type="text"
+                                                                onChange={(e) => dispatch(setPrice(e.target.value))}
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Price'
+                                                            />
                                                         </label>
                                                         <label>
                                                             <span>Category</span>
@@ -70,11 +132,11 @@ const FloatingButton = ({ title }) => {
                                                                 id='business-type'
                                                                 name='user_id'
                                                                 className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]'
-                                                                onChange={(e) => { }}
+                                                                onChange={(e) => dispatch(setCategory(e.target.value))}
                                                             >
                                                                 <option>Select Item Category</option>
-                                                                <option value='consumer'>Consumer</option>
-                                                                <option value='admin'>Admin</option>
+                                                                <option value='fashion'>Fashion</option>
+                                                                <option value='book'>Book</option>
                                                                 <option value='merchant'>Merchant</option>
                                                                 <option value='landlord'>Landlord</option>
 
@@ -82,30 +144,50 @@ const FloatingButton = ({ title }) => {
                                                         </label>
                                                         <label className='flex flex-col'>
                                                             <span>Quantity</span>
-                                                            <input type="number" defaultValue="0" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' />
+                                                            <input
+                                                                type="number"
+                                                                defaultValue="0"
+                                                                onChange={(e) => dispatch(setQuantity(e.target.value))}
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]'
+                                                            />
                                                         </label>
                                                         <label className='flex flex-col'>
                                                             <span>Brand (Optional)</span>
-                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Brand' />
+                                                            <input
+                                                                type="text"
+                                                                onChange={(e) => dispatch(setBrand(e.target.value))}
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Brand'
+                                                            />
                                                         </label>
                                                         <label className='flex flex-col'>
                                                             <span>Size (Optional)</span>
-                                                            <input type="text" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Size' />
+                                                            <input
+                                                                type="text"
+                                                                onChange={(e) => dispatch(setBrand(e.target.value))}
+                                                                className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Size'
+                                                            />
                                                         </label>
-                                                    </div>
-
-
-                                                    <div className="grid grid-cols-2 gap-2">
-
                                                     </div>
                                                     <label className='flex flex-col'>
                                                         <span>Description</span>
-                                                        <textarea name="" id="" cols="10" rows="4" className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Description'></textarea>
+                                                        <textarea
+                                                            cols="10"
+                                                            rows="4"
+                                                            onChange={(e) => dispatch(setDesc(e.target.value))}
+                                                            className='appearance-none border-solid border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Description
+                                                            '></textarea>
                                                     </label>
-                                                    <label htmlFor="">
+                                                    <label className='flex flex-col'>
                                                         <span>Images</span>
-                                                        <input type="file" name="" id="" className='appearance-none border-dashed border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]' placeholder='Enter Item Description' />
+                                                        <input
+                                                            type="file"
+                                                            accept="image/*"
+                                                            multiple // Allow selecting multiple files
+                                                            onChange={(e) => dispatch(setImage(e.target.files))} // Use e.target.files to get the selected files
+                                                            className="appearance-none border-dashed border-2 rounded-xl w-full p-2 md:p-3 text-[#042349] leading-tight focus:outline-[#0F3460] focus:shadow-outline placeholder-[#052B73]"
+                                                        />
                                                     </label>
+
                                                 </form>
                                             </div>
                                         </div>
@@ -114,7 +196,7 @@ const FloatingButton = ({ title }) => {
                                         <button
                                             type="button"
                                             className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                                            onClick={() => setOpen(false)}
+                                            onClick={handleSubmit}
                                         >
                                             Create
                                         </button>

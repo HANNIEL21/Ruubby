@@ -20,6 +20,9 @@ import {
   Product,
   Saved,
   Order,
+  Property,
+  PropertyDetails,
+  PropertyHome
 } from './Export';
 
 function App() {
@@ -31,6 +34,10 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/properties' element={<Property />} >
+          <Route index element={<PropertyHome />} />
+          <Route path='/properties/property/:id' element={<PropertyDetails />} />
+        </Route>
         <Route path='/shop' element={<Shop />}>
           <Route index element={<ShopHome />} />
           <Route path='/shop/product/:id' element={<Product />} />

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { DashboardTable } from '../../Export';
 
 
 const Properties = () => {
-  const [properties, setProperties] = useState([]);
-
-
 
   const propertyData = [
     {
@@ -49,10 +46,6 @@ const Properties = () => {
     "2 Bedroom Flat",
     "Mansion"
   ]
-
-  useEffect(() => {
-    setProperties(propertyData);
-  }, [])
 
   return (
     <div>
